@@ -1,0 +1,838 @@
+# defines 'map' object used for floorplans
+include "map.inc"
+
+# defines sick laser
+include "sick.inc"
+
+# defines Pioneer-like robots
+include "pioneer.inc"
+
+# set the resolution of the underlying raytrace model in meters
+resolution 0.1
+
+speedup -1
+
+# configure the GUI window
+window
+( 
+  size [ 591.000 638.000 ] 
+  center [ 100 100 ] 
+  show_data 1
+)
+define robot pioneer2dx
+(
+sicklaser ()
+size [0.44 0.44 0.44]
+localization "gps"
+localization_origin [ 0 0 0 0 ]
+)
+
+model
+(
+  name "toDraw"
+  size [0.001 0.001 0.001]
+  pose [0 0 0 0]
+  ctrl "draw.so 0.3"
+  obstacle_return 0
+)
+
+robot
+(
+  name "robot0"
+  color "red"
+  pose [102.59 117.927 0 -98.2196]
+  ctrl "coordination.so 0 100 0.3 video log"
+)
+
+robot
+(
+  name "robot1"
+  color "red"
+  pose [99.7891 115.194 0 -89.2045]
+  ctrl "coordination.so 1 100 0.3 video log"
+)
+
+robot
+(
+  name "robot2"
+  color "red"
+  pose [88.4122 106.817 0 -30.4695]
+  ctrl "coordination.so 2 100 0.3 video log"
+)
+
+robot
+(
+  name "robot3"
+  color "red"
+  pose [95.7387 119.672 0 -77.7771]
+  ctrl "coordination.so 3 100 0.3 video log"
+)
+
+robot
+(
+  name "robot4"
+  color "red"
+  pose [86.8715 85.7142 0 47.4171]
+  ctrl "coordination.so 4 100 0.3 video log"
+)
+
+robot
+(
+  name "robot5"
+  color "red"
+  pose [86.0259 106.669 0 -25.5139]
+  ctrl "coordination.so 5 100 0.3 video log"
+)
+
+robot
+(
+  name "robot6"
+  color "red"
+  pose [115.121 109.155 0 -148.805]
+  ctrl "coordination.so 6 100 0.3 video log"
+)
+
+robot
+(
+  name "robot7"
+  color "red"
+  pose [81.3584 99.4523 0 1.68281]
+  ctrl "coordination.so 7 100 0.3 video log"
+)
+
+robot
+(
+  name "robot8"
+  color "red"
+  pose [93.8097 115.16 0 -67.7885]
+  ctrl "coordination.so 8 100 0.3 video log"
+)
+
+robot
+(
+  name "robot9"
+  color "red"
+  pose [85.6877 103.616 0 -14.1803]
+  ctrl "coordination.so 9 100 0.3 video log"
+)
+
+robot
+(
+  name "robot10"
+  color "red"
+  pose [82.401 108.932 0 -26.9091]
+  ctrl "coordination.so 10 100 0.3 video log"
+)
+
+robot
+(
+  name "robot11"
+  color "red"
+  pose [85.7184 92.6428 0 27.2554]
+  ctrl "coordination.so 11 100 0.3 video log"
+)
+
+robot
+(
+  name "robot12"
+  color "red"
+  pose [120.276 103.679 0 -169.717]
+  ctrl "coordination.so 12 100 0.3 video log"
+)
+
+robot
+(
+  name "robot13"
+  color "red"
+  pose [86.0563 91.1445 0 32.4191]
+  ctrl "coordination.so 13 100 0.3 video log"
+)
+
+robot
+(
+  name "robot14"
+  color "red"
+  pose [96.6438 85.3332 0 77.1109]
+  ctrl "coordination.so 14 100 0.3 video log"
+)
+
+robot
+(
+  name "robot15"
+  color "red"
+  pose [92.5843 118.292 0 -67.932]
+  ctrl "coordination.so 15 100 0.3 video log"
+)
+
+robot
+(
+  name "robot16"
+  color "red"
+  pose [98.5258 86.0412 0 83.9709]
+  ctrl "coordination.so 16 100 0.3 video log"
+)
+
+robot
+(
+  name "robot17"
+  color "red"
+  pose [116.063 92.419 0 154.734]
+  ctrl "coordination.so 17 100 0.3 video log"
+)
+
+robot
+(
+  name "robot18"
+  color "red"
+  pose [113.209 91.1147 0 146.073]
+  ctrl "coordination.so 18 100 0.3 video log"
+)
+
+robot
+(
+  name "robot19"
+  color "red"
+  pose [115.08 95.0502 0 161.828]
+  ctrl "coordination.so 19 100 0.3 video log"
+)
+
+robot
+(
+  name "robot20"
+  color "red"
+  pose [119.209 108.334 0 -156.545]
+  ctrl "coordination.so 20 100 0.3 video log"
+)
+
+robot
+(
+  name "robot21"
+  color "red"
+  pose [90.7889 86.1497 0 56.3741]
+  ctrl "coordination.so 21 100 0.3 video log"
+)
+
+robot
+(
+  name "robot22"
+  color "red"
+  pose [112.509 87.6663 0 135.404]
+  ctrl "coordination.so 22 100 0.3 video log"
+)
+
+robot
+(
+  name "robot23"
+  color "red"
+  pose [105.304 79.9431 0 104.812]
+  ctrl "coordination.so 23 100 0.3 video log"
+)
+
+robot
+(
+  name "robot24"
+  color "red"
+  pose [105.804 85.4186 0 111.703]
+  ctrl "coordination.so 24 100 0.3 video log"
+)
+
+robot
+(
+  name "robot25"
+  color "red"
+  pose [113.808 108.256 0 -149.123]
+  ctrl "coordination.so 25 100 0.3 video log"
+)
+
+robot
+(
+  name "robot26"
+  color "red"
+  pose [91.7864 113.521 0 -58.7228]
+  ctrl "coordination.so 26 100 0.3 video log"
+)
+
+robot
+(
+  name "robot27"
+  color "red"
+  pose [103.656 86.5742 0 105.233]
+  ctrl "coordination.so 27 100 0.3 video log"
+)
+
+robot
+(
+  name "robot28"
+  color "red"
+  pose [86.0186 114.877 0 -46.7768]
+  ctrl "coordination.so 28 100 0.3 video log"
+)
+
+robot
+(
+  name "robot29"
+  color "red"
+  pose [102.052 83.0718 0 96.9105]
+  ctrl "coordination.so 29 100 0.3 video log"
+)
+
+robot
+(
+  name "robot30"
+  color "red"
+  pose [87.8917 86.0779 0 48.9857]
+  ctrl "coordination.so 30 100 0.3 video log"
+)
+
+robot
+(
+  name "robot31"
+  color "red"
+  pose [97.1671 116.782 0 -80.4183]
+  ctrl "coordination.so 31 100 0.3 video log"
+)
+
+robot
+(
+  name "robot32"
+  color "red"
+  pose [112.876 93.4225 0 152.941]
+  ctrl "coordination.so 32 100 0.3 video log"
+)
+
+robot
+(
+  name "robot33"
+  color "red"
+  pose [108.892 117.394 0 -117.077]
+  ctrl "coordination.so 33 100 0.3 video log"
+)
+
+robot
+(
+  name "robot34"
+  color "red"
+  pose [97.2297 120.736 0 -82.3902]
+  ctrl "coordination.so 34 100 0.3 video log"
+)
+
+robot
+(
+  name "robot35"
+  color "red"
+  pose [81.7685 92.6667 0 21.9115]
+  ctrl "coordination.so 35 100 0.3 video log"
+)
+
+robot
+(
+  name "robot36"
+  color "red"
+  pose [84.2638 101.588 0 -5.76114]
+  ctrl "coordination.so 36 100 0.3 video log"
+)
+
+robot
+(
+  name "robot37"
+  color "red"
+  pose [83.7466 92.5496 0 24.6263]
+  ctrl "coordination.so 37 100 0.3 video log"
+)
+
+robot
+(
+  name "robot38"
+  color "red"
+  pose [114.626 99.6283 0 178.544]
+  ctrl "coordination.so 38 100 0.3 video log"
+)
+
+robot
+(
+  name "robot39"
+  color "red"
+  pose [82.9014 93.6679 0 20.3209]
+  ctrl "coordination.so 39 100 0.3 video log"
+)
+
+robot
+(
+  name "robot40"
+  color "red"
+  pose [101.817 84.4431 0 96.6627]
+  ctrl "coordination.so 40 100 0.3 video log"
+)
+
+robot
+(
+  name "robot41"
+  color "red"
+  pose [108.666 88.8669 0 127.898]
+  ctrl "coordination.so 41 100 0.3 video log"
+)
+
+robot
+(
+  name "robot42"
+  color "red"
+  pose [105.629 88.0253 0 115.177]
+  ctrl "coordination.so 42 100 0.3 video log"
+)
+
+robot
+(
+  name "robot43"
+  color "red"
+  pose [83.398 96.6795 0 11.3101]
+  ctrl "coordination.so 43 100 0.3 video log"
+)
+
+robot
+(
+  name "robot44"
+  color "red"
+  pose [112.891 104.847 0 -159.395]
+  ctrl "coordination.so 44 100 0.3 video log"
+)
+
+robot
+(
+  name "robot45"
+  color "red"
+  pose [104.451 120.376 0 -102.321]
+  ctrl "coordination.so 45 100 0.3 video log"
+)
+
+robot
+(
+  name "robot46"
+  color "red"
+  pose [116.374 97.0958 0 169.942]
+  ctrl "coordination.so 46 100 0.3 video log"
+)
+
+robot
+(
+  name "robot47"
+  color "red"
+  pose [88.5165 87.1099 0 48.3029]
+  ctrl "coordination.so 47 100 0.3 video log"
+)
+
+robot
+(
+  name "robot48"
+  color "red"
+  pose [110.257 90.9504 0 138.577]
+  ctrl "coordination.so 48 100 0.3 video log"
+)
+
+robot
+(
+  name "robot49"
+  color "red"
+  pose [95.2533 86.8873 0 70.0999]
+  ctrl "coordination.so 49 100 0.3 video log"
+)
+
+robot
+(
+  name "robot50"
+  color "red"
+  pose [92.7265 114.951 0 -64.0581]
+  ctrl "coordination.so 50 100 0.3 video log"
+)
+
+robot
+(
+  name "robot51"
+  color "red"
+  pose [114.456 111.585 0 -141.293]
+  ctrl "coordination.so 51 100 0.3 video log"
+)
+
+robot
+(
+  name "robot52"
+  color "red"
+  pose [102.848 119.804 0 -98.1828]
+  ctrl "coordination.so 52 100 0.3 video log"
+)
+
+robot
+(
+  name "robot53"
+  color "red"
+  pose [115.202 101.398 0 -174.744]
+  ctrl "coordination.so 53 100 0.3 video log"
+)
+
+robot
+(
+  name "robot54"
+  color "red"
+  pose [94.7919 112.629 0 -67.5884]
+  ctrl "coordination.so 54 100 0.3 video log"
+)
+
+robot
+(
+  name "robot55"
+  color "red"
+  pose [82.4064 91.1897 0 26.6001]
+  ctrl "coordination.so 55 100 0.3 video log"
+)
+
+robot
+(
+  name "robot56"
+  color "red"
+  pose [117.927 91.7133 0 155.191]
+  ctrl "coordination.so 56 100 0.3 video log"
+)
+
+robot
+(
+  name "robot57"
+  color "red"
+  pose [100.85 118.029 0 -92.6977]
+  ctrl "coordination.so 57 100 0.3 video log"
+)
+
+robot
+(
+  name "robot58"
+  color "red"
+  pose [88.8791 90.4171 0 40.7516]
+  ctrl "coordination.so 58 100 0.3 video log"
+)
+
+robot
+(
+  name "robot59"
+  color "red"
+  pose [116.644 94.0306 0 160.269]
+  ctrl "coordination.so 59 100 0.3 video log"
+)
+
+robot
+(
+  name "robot60"
+  color "red"
+  pose [115.169 113.923 0 -137.452]
+  ctrl "coordination.so 60 100 0.3 video log"
+)
+
+robot
+(
+  name "robot61"
+  color "red"
+  pose [117.244 103.693 0 -167.912]
+  ctrl "coordination.so 61 100 0.3 video log"
+)
+
+robot
+(
+  name "robot62"
+  color "red"
+  pose [81.8735 105.085 0 -15.6716]
+  ctrl "coordination.so 62 100 0.3 video log"
+)
+
+robot
+(
+  name "robot63"
+  color "red"
+  pose [114.044 89.5391 0 143.319]
+  ctrl "coordination.so 63 100 0.3 video log"
+)
+
+robot
+(
+  name "robot64"
+  color "red"
+  pose [84.6211 106.088 0 -21.5953]
+  ctrl "coordination.so 64 100 0.3 video log"
+)
+
+robot
+(
+  name "robot65"
+  color "red"
+  pose [104.348 116.059 0 -105.148]
+  ctrl "coordination.so 65 100 0.3 video log"
+)
+
+robot
+(
+  name "robot66"
+  color "red"
+  pose [96.7605 112.904 0 -75.907]
+  ctrl "coordination.so 66 100 0.3 video log"
+)
+
+robot
+(
+  name "robot67"
+  color "red"
+  pose [114.176 86.9704 0 137.413]
+  ctrl "coordination.so 67 100 0.3 video log"
+)
+
+robot
+(
+  name "robot68"
+  color "red"
+  pose [87.3923 107.679 0 -31.3429]
+  ctrl "coordination.so 68 100 0.3 video log"
+)
+
+robot
+(
+  name "robot69"
+  color "red"
+  pose [87.329 105.939 0 -25.1117]
+  ctrl "coordination.so 69 100 0.3 video log"
+)
+
+robot
+(
+  name "robot70"
+  color "red"
+  pose [88.5258 93.4561 0 29.6965]
+  ctrl "coordination.so 70 100 0.3 video log"
+)
+
+robot
+(
+  name "robot71"
+  color "red"
+  pose [116.603 104.574 0 -164.599]
+  ctrl "coordination.so 71 100 0.3 video log"
+)
+
+robot
+(
+  name "robot72"
+  color "red"
+  pose [106.544 81.6981 0 109.675]
+  ctrl "coordination.so 72 100 0.3 video log"
+)
+
+robot
+(
+  name "robot73"
+  color "red"
+  pose [106.523 87.0352 0 116.709]
+  ctrl "coordination.so 73 100 0.3 video log"
+)
+
+robot
+(
+  name "robot74"
+  color "red"
+  pose [100.294 85.2139 0 91.1382]
+  ctrl "coordination.so 74 100 0.3 video log"
+)
+
+robot
+(
+  name "robot75"
+  color "red"
+  pose [90.5553 83.7696 0 59.804]
+  ctrl "coordination.so 75 100 0.3 video log"
+)
+
+robot
+(
+  name "robot76"
+  color "red"
+  pose [90.3354 87.0795 0 53.2032]
+  ctrl "coordination.so 76 100 0.3 video log"
+)
+
+robot
+(
+  name "robot77"
+  color "red"
+  pose [110.699 82.5187 0 121.467]
+  ctrl "coordination.so 77 100 0.3 video log"
+)
+
+robot
+(
+  name "robot78"
+  color "red"
+  pose [108.533 112.931 0 -123.42]
+  ctrl "coordination.so 78 100 0.3 video log"
+)
+
+robot
+(
+  name "robot79"
+  color "red"
+  pose [94.5057 88.0564 0 65.2965]
+  ctrl "coordination.so 79 100 0.3 video log"
+)
+
+robot
+(
+  name "robot80"
+  color "red"
+  pose [80.7317 94.2674 0 16.5683]
+  ctrl "coordination.so 80 100 0.3 video log"
+)
+
+robot
+(
+  name "robot81"
+  color "red"
+  pose [86.0968 87.3553 0 42.2859]
+  ctrl "coordination.so 81 100 0.3 video log"
+)
+
+robot
+(
+  name "robot82"
+  color "red"
+  pose [105.688 82.6857 0 108.185]
+  ctrl "coordination.so 82 100 0.3 video log"
+)
+
+robot
+(
+  name "robot83"
+  color "red"
+  pose [84.7543 104.153 0 -15.2394]
+  ctrl "coordination.so 83 100 0.3 video log"
+)
+
+robot
+(
+  name "robot84"
+  color "red"
+  pose [82.7011 95.6342 0 14.1643]
+  ctrl "coordination.so 84 100 0.3 video log"
+)
+
+robot
+(
+  name "robot85"
+  color "red"
+  pose [115.335 100.401 0 -178.501]
+  ctrl "coordination.so 85 100 0.3 video log"
+)
+
+robot
+(
+  name "robot86"
+  color "red"
+  pose [83.1092 101.524 0 -5.15422]
+  ctrl "coordination.so 86 100 0.3 video log"
+)
+
+robot
+(
+  name "robot87"
+  color "red"
+  pose [111.755 92.2721 0 146.678]
+  ctrl "coordination.so 87 100 0.3 video log"
+)
+
+robot
+(
+  name "robot88"
+  color "red"
+  pose [114.039 106.65 0 -154.655]
+  ctrl "coordination.so 88 100 0.3 video log"
+)
+
+robot
+(
+  name "robot89"
+  color "red"
+  pose [109.133 114.304 0 -122.56]
+  ctrl "coordination.so 89 100 0.3 video log"
+)
+
+robot
+(
+  name "robot90"
+  color "red"
+  pose [109.183 109.438 0 -134.213]
+  ctrl "coordination.so 90 100 0.3 video log"
+)
+
+robot
+(
+  name "robot91"
+  color "red"
+  pose [118.17 102.436 0 -172.363]
+  ctrl "coordination.so 91 100 0.3 video log"
+)
+
+robot
+(
+  name "robot92"
+  color "red"
+  pose [116.092 95.7645 0 165.254]
+  ctrl "coordination.so 92 100 0.3 video log"
+)
+
+robot
+(
+  name "robot93"
+  color "red"
+  pose [112.555 95.9145 0 161.974]
+  ctrl "coordination.so 93 100 0.3 video log"
+)
+
+robot
+(
+  name "robot94"
+  color "red"
+  pose [111.87 88.4562 0 135.798]
+  ctrl "coordination.so 94 100 0.3 video log"
+)
+
+robot
+(
+  name "robot95"
+  color "red"
+  pose [110.984 115.842 0 -124.735]
+  ctrl "coordination.so 95 100 0.3 video log"
+)
+
+robot
+(
+  name "robot96"
+  color "red"
+  pose [82.123 96.6468 0 10.6236]
+  ctrl "coordination.so 96 100 0.3 video log"
+)
+
+robot
+(
+  name "robot97"
+  color "red"
+  pose [109.77 85.8468 0 124.616]
+  ctrl "coordination.so 97 100 0.3 video log"
+)
+
+robot
+(
+  name "robot98"
+  color "red"
+  pose [107.817 118.875 0 -112.497]
+  ctrl "coordination.so 98 100 0.3 video log"
+)
+
+robot
+(
+  name "robot99"
+  color "red"
+  pose [80.6786 92.7197 0 20.6464]
+  ctrl "coordination.so 99 100 0.3 video log"
+)
+
