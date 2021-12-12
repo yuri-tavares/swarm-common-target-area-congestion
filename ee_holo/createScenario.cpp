@@ -113,11 +113,11 @@ int main(int argc, char **argv)
    output << ")" << endl
           << "define robot pioneer2dx" << endl
           << "(" << endl
-          << "sicklaser ()" << endl
-          << "size [0.44 0.44 0.44]" << endl
-          << "localization \"gps\"" << endl
-          << "localization_origin [ 0 0 0 0 ]" << endl
-          << "drive \"omni\"" << endl
+          << "  sicklaser ()" << endl
+          << "  size [0.44 0.44 0.44]" << endl
+          << "  localization \"gps\"" << endl
+          << "  localization_origin [ 0 0 0 0 ]" << endl
+          << "  drive \"omni\"" << endl
           << ")" << endl << endl
           << "model" << endl
           << "(" << endl
