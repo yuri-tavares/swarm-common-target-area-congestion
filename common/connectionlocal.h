@@ -90,10 +90,10 @@ class ConnectionLocal{
     void finish(int m_id, int numIterationsEnter, int numIterationsExit, int numStalls);
     
     //informs the logger that the robot using this class end your task, refreshing statistics
-    void finish(int m_id, int numIterationsEnter, int numIterationsExit, int numStalls, Stg::usec_t sim_time, Stg::usec_t reaching_goal_time, double maxVel, double minDist);
+    void finish(int m_id, int numIterationsEnter, int numIterationsExit, int numStalls, Stg::usec_t sim_time, Stg::usec_t reaching_goal_time, double maxVel, double minDist, Stg::usec_t leavingTime);
     
     //informs the logger that the robot using this class end your task, refreshing statistics
-    void finish(int m_id, int numIterationsEnter, int numIterationsExit, int numStalls, Stg::usec_t sim_time, Stg::usec_t reaching_goal_time, double maxVel, double minDist, double meanDist, double varDist, unsigned long ndist, double meanVel, double varVel, unsigned long nveloc);
+    void finish(int m_id, int numIterationsEnter, int numIterationsExit, int numStalls, Stg::usec_t sim_time, Stg::usec_t reaching_goal_time, double maxVel, double minDist, double meanDist, double varDist, unsigned long ndist, double meanVel, double varVel, unsigned long nveloc, Stg::usec_t leavingTime);
 };
 
 #endif

@@ -34,7 +34,7 @@ void WiseRobot::init(int id, int numRobots, string const& name_run, string const
    pos->SetColor(GOING_COLOR);
 
    #ifdef GENERAL_LOG
-   log.open((name_run + "_logs/"+m_name).c_str());
+     log.open((name_run + "_logs/"+m_name).c_str());
    #endif
 
    target_dist = new_waypointDist;
@@ -46,8 +46,10 @@ void WiseRobot::init(int id, int numRobots, string const& name_run, string const
    
    mean_distance = INFLUENCE; var_distance = 0; mean_velocity = 0; var_velocity = 0;
    n_distances = n_velocities = 0;
-   logv.open((m_name+"_v").c_str());
-   logd.open((m_name+"_d").c_str());
+   #ifdef LOG_VEL_DIST
+     logv.open((m_name+"_v").c_str());
+     logd.open((m_name+"_d").c_str());
+   #endif
 }
 
 //Finish robot. Here only display a message for looking with the simulation is still running.
@@ -55,10 +57,12 @@ void WiseRobot::finish()
 {
    //This message is to see how many robots ended while experimentation scripts are ongoing, then I can see if it is stopped.
    cout << "Robot " << m_id << " finished!" << endl;
-   logv.close();
-   logd.close();
+   #ifdef LOG_VEL_DIST
+     logv.close();
+     logd.close();
+   #endif
    #ifdef GENERAL_LOG
-   log.close();
+     log.close();
    #endif
 }
 
@@ -122,7 +126,9 @@ void WiseRobot::obstaclesRepulsionForces(double &fx, double &fy)
    if (!finished){
      n_distances++;
      IterativeMeanVariance(min_scan, n_distances, &mean_distance, &var_distance);
-     logd << min_scan << endl;
+     #ifdef LOG_VEL_DIST
+       logd << min_scan << endl;
+     #endif
    }
    #ifdef DEBUG_FORCES
    fv.setRepulsiveForces(fx_,fy_);
@@ -177,13 +183,13 @@ void WiseRobot::walk(){
     pos->SetColor(END_COLOR);
     finish();
     finished = false;
-    connection.finish(m_id,numIterationsReachGoal,numIterations,stalls,sim_time,reachingTargetTime,maxVelocity,minDistance,mean_distance, var_distance, n_distances, mean_velocity, var_velocity, n_velocities);
+    connection.finish(m_id,numIterationsReachGoal,numIterations,stalls,sim_time,reachingTargetTime,maxVelocity,minDistance,mean_distance, var_distance, n_distances, mean_velocity, var_velocity, n_velocities, sim_time-reachingTargetTime);
   }
 
   if ((testTime - FINISH_TIME < sim_time) && !finishedBySimTime )
   {
     finishedBySimTime = true;
-    connection.finish(m_id,numIterationsReachGoal,numIterations,stalls,sim_time,sim_time,maxVelocity,minDistance);
+    connection.finish(m_id,numIterationsReachGoal,numIterations,stalls,sim_time,sim_time,maxVelocity,minDistance,sim_time-reachingTargetTime);
     pos->SetColor(Color(0,0,0));
     finish();
   }
@@ -297,7 +303,9 @@ void WiseRobot::walk(){
       maxVelocity = linvec; 
     n_velocities++;
     IterativeMeanVariance(linvec, n_velocities, &mean_velocity, &var_velocity);
-    logv << linvec << endl;
+    #ifdef LOG_VEL_DIST
+      logv << linvec << endl;
+    #endif
   }
   #ifdef GENERAL_LOG
   log << m_x << " " << m_y << " " 

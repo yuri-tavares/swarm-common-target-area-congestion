@@ -271,13 +271,13 @@ void WiseRobot::walk(){
     pos->SetColor(END_COLOR);
     finish();
     finished = false;
-    connection.finish(m_id,numIterationsReachGoal,numIterations,stalls,sim_time,reachingTargetTime,maxVelocity,minDistance);
+    connection.finish(m_id,numIterationsReachGoal,numIterations,stalls,sim_time,reachingTargetTime,maxVelocity,minDistance,sim_time-reachingTargetTime);
   }
 
   if ((testTime - FINISH_TIME < sim_time) && !finishedBySimTime )
   {
     finishedBySimTime = true;
-    connection.finish(m_id,numIterationsReachGoal,numIterations,stalls,sim_time,sim_time,maxVelocity,minDistance);
+    connection.finish(m_id,numIterationsReachGoal,numIterations,stalls,sim_time,sim_time,maxVelocity,minDistance,sim_time-reachingTargetTime);
     pos->SetColor(Color(0,0,0));
     finish();
   }

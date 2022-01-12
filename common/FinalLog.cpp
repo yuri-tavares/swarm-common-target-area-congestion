@@ -19,7 +19,7 @@ double FinalLog::meanDistance, FinalLog::varDistance;  //mean and variance of di
 double FinalLog::meanVelocity, FinalLog::varVelocity; //mean and variance of velocity achieved by any robot 
 unsigned long FinalLog::nDistance, FinalLog::nVelocity; //number of mean and variance of distance and velocity entered so far.
 Stg::usec_t FinalLog::minReachingTargetTime, FinalLog::maxReachingTargetTime; //max and min simulation time in microseconds to reach the target between all robots
-
+Stg::usec_t FinalLog::totalLeavingTime;  // sum for all robots of the time for leaving the target area
 
 void FinalLog::init(string p){
   if (!initiated){
@@ -40,6 +40,7 @@ void FinalLog::init(string p){
     maxReachingTargetTime = 0;
     nDistance = nVelocity = 0;
     varDistance = varVelocity = meanDistance = meanVelocity = 0;
+    totalLeavingTime = 0;
   }
   num_robots++;
 }
@@ -66,7 +67,8 @@ void FinalLog::refresh(unsigned int numIterationsReachGoal,
                     Stg::usec_t sim_time,
                     Stg::usec_t reaching_goal_time,
                     double maxVel,
-                    double minDist){
+                    double minDist,
+                    Stg::usec_t leaving_goal_time){
   numMsgs += messages;
   numTotalStalls += numStalls;
   numTotalIterationsReachGoal += numIterationsReachGoal;
@@ -85,6 +87,7 @@ void FinalLog::refresh(unsigned int numIterationsReachGoal,
     maxReachingTargetTime = reaching_goal_time;
   if (reaching_goal_time < minReachingTargetTime)
     minReachingTargetTime = reaching_goal_time;
+  totalLeavingTime+=leaving_goal_time;
 }
 
 void FinalLog::saveLog(){
@@ -102,6 +105,7 @@ void FinalLog::saveLog(){
   logFile << simTime << endl; //in microseconds
   logFile << minDistance << endl;
   logFile << maxVelocity << endl;
+  logFile << totalLeavingTime << endl;
   logFile.close();
 }
 
@@ -119,7 +123,8 @@ void FinalLog::refresh(unsigned int numIterationsReachGoal,
                     unsigned long ndist,
                     double meanVel, 
                     double varVel,
-                    unsigned long nveloc){
+                    unsigned long nveloc,
+                    Stg::usec_t leaving_goal_time){
   numMsgs += messages;
   numTotalStalls += numStalls;
   numTotalIterationsReachGoal += numIterationsReachGoal;
@@ -144,6 +149,7 @@ void FinalLog::refresh(unsigned int numIterationsReachGoal,
   varVelocity = (nVelocity*varVelocity + nveloc*varVel + ((meanVelocity - meanVel)*(meanVelocity - meanVel)*nVelocity*nveloc)/(nVelocity + nveloc))/(nVelocity + nveloc);
   meanVelocity = (meanVelocity*nVelocity + meanVel*nveloc)/(nVelocity + nveloc);
   nVelocity+=nveloc;
+  totalLeavingTime+=leaving_goal_time;
 }
 
 void FinalLog::saveLogDistVeloc(){
@@ -167,6 +173,7 @@ void FinalLog::saveLogDistVeloc(){
   logFile << meanVelocity << endl;
   logFile << sqrt(varVelocity) << endl;
   logFile << nVelocity << endl;
+  logFile << totalLeavingTime << endl;
   logFile.close();
 }
 

@@ -19,6 +19,7 @@ const int waypoints[3][2] = { {100,100}, {-999999, 100}, {999999,100}/*, {0,-999
 #define Ki 0.5  //constant for repulsion forces of IMPATIENT and GOING robots
 //#define SERVER_FINISH_OUTPUT //if defined, server outputs messages about finished robots
 //#define GENERAL_LOG  //if defined, robots output log messages to stout
+//#define LOG_VEL_DIST  //if defined, robots output logs for velocity and distances of each robot
 //#define DEBUG_FORCES //If defined, it allow compilation of force visualization codes
 
 const double Ka = 2.5; //constant for robot controller, attraction to target

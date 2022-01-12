@@ -24,6 +24,7 @@ class FinalLog{
     static unsigned int numTotalStalls; //number of times that the robots stalled
     static Stg::usec_t simTime; //simulation time in microseconds
     static Stg::usec_t minReachingTargetTime, maxReachingTargetTime; //max and min simulation time in microseconds to reach the target between all robots
+    static Stg::usec_t totalLeavingTime;  // sum for all robots of the time for leaving the target area
     static double minDistance;  //minimum distance between robots detected by sensors for all robots
     static double maxVelocity; //maximum velocity achieved by any robot 
     static double meanDistance, varDistance;  //mean and variance of distance between robots detected by sensors for all robots
@@ -52,7 +53,8 @@ class FinalLog{
                         unsigned long ndist,
                         double meanVel,
                         double varVel,
-                        unsigned long nveloc);
+                        unsigned long nveloc,
+                        Stg::usec_t leaving_goal_time);
                         
     static void notify_finish();
     static void finish();

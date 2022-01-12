@@ -52,6 +52,7 @@ double Robot::d, Robot::D,  Robot::powtauk;
 double Robot::alpha, Robot::r, Robot::dcurve, Robot::corridorLength;
 double Robot::maxVelocity = 0, Robot::minDistance;
 bool Robot::isHolonomic;
+bool Robot::savePosVel = false;
 
 //Reads a config file and calculate the static parameters.
 void Robot::readConfigFile(string const& confFileName)
@@ -78,6 +79,12 @@ void Robot::readConfigFile(string const& confFileName)
   catch (string s) {
     testTime = maxTestTime;
   }
+  try{
+    savePosVel = (atoi(cf.valueOf("saveVelocities").c_str()) != 0);
+  }
+  catch (string s) {
+    savePosVel = false;
+  }
   alpha = 2*PI/K_path;
   r = (waypointDist * sin(alpha / 2.) - d/2.) / (1 - sin(alpha / 2.));
   dcurve = sqrt(pow(waypointDist + r,2) - pow(d/2. + r,2));
@@ -98,8 +105,10 @@ void Robot::init(int id)
   m_th = pose.a;
   numIterations = numIterationsReachGoal = 0;
   FinalLog::init(folder+"/"+log_name);
-  logv.open((folder+"/"+log_name+"_"+m_name+"_v").c_str());
-  logd.open((folder+"/"+log_name+"_"+m_name+"_d").c_str());
+  if (savePosVel){
+    logv.open((folder+"/"+log_name+"_"+m_name+"_v").c_str());
+    logd.open((folder+"/"+log_name+"_"+m_name+"_d").c_str());
+  }
   finished = finishedBySimTime = false;
   stalls = 0; 
   alreadyStalled = false;
@@ -127,8 +136,10 @@ void Robot::finish()
 {
   //This message is to see how many robots ended while experimentation scripts are ongoing, then I can see if it is stopped.
   cout << "Robot " << m_id << " finished!" << endl;
-  logv.close();
-  logd.close();
+  if (savePosVel){
+    logv.close();
+    logd.close();
+  }
 }
 
 //Subtract two angle values (in radians). The result value lies between -2 PI and 2 PI. 
@@ -231,7 +242,7 @@ void Robot::obstaclesRepulsionForces()
    if (!finished){
      n_distances++;
      IterativeMeanVariance(min_scan, n_distances, &mean_distance, &var_distance);
-     logd << min_scan << endl;
+     if (savePosVel) logd << min_scan << endl;
    }
    #ifdef DEBUG_FORCES
    fv.setRepulsiveForces(fx_,fy_);
@@ -271,7 +282,7 @@ void Robot::setSpeeds()
         maxVelocity = linvec;
       n_velocities++;
       IterativeMeanVariance(linvec, n_velocities, &mean_velocity, &var_velocity);
-      logv << linvec << endl;
+      if (savePosVel) logv << linvec << endl;
     }
   }
   else{
@@ -302,7 +313,7 @@ void Robot::setSpeeds()
         maxVelocity = veloc.x; 
       n_velocities++;
       IterativeMeanVariance(veloc.x, n_velocities, &mean_velocity, &var_velocity);
-      logv << veloc.x << endl;
+      if (savePosVel) logv << veloc.x << endl;
     }
   }
 }
@@ -605,7 +616,7 @@ void Robot::mainLoop()
   if ((m_state == LEAVING_CURVE || m_state == LEAVING_LINE2 ) && hypot(m_x - waypoints[0][0], m_y - waypoints[0][1]) > D){
     m_state = GOING_OUT;
     pos->SetColor(END_COLOR);
-    FinalLog::refresh(numIterationsReachGoal, numIterations, stalls, theWorld->SimTimeNow(), reachingTargetTime, maxVelocity, minDistance, mean_distance, var_distance, n_distances, mean_velocity, var_velocity, n_velocities);
+    FinalLog::refresh(numIterationsReachGoal, numIterations, stalls, theWorld->SimTimeNow(), reachingTargetTime, maxVelocity, minDistance, mean_distance, var_distance, n_distances, mean_velocity, var_velocity, n_velocities, theWorld->SimTimeNow() - reachingTargetTime);
     FinalLog::notify_finish();
     exitedFromTargetRegion = true;
     finish();

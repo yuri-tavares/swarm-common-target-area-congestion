@@ -32,7 +32,7 @@ def testTEqual(means1, variances1, n1, means2, variances2, n2):
 algorithmsLabels = ["PCC","EE","PCC-EE","TRVF","SQF"];
 suffix_file_list = ['nonholo','holo']
 nRobots = range(20,320,20);
-datalines = 13+2
+datalines = 13+3
 
 algorithmsDict = {}
 algorithmsSymbolDict = {}
@@ -77,6 +77,9 @@ for i_sf, suffix_file in enumerate(suffix_file_list):
             data[n,a,s,fileline,i_sf] = float(dataFileStr[fileline]);
           elif fileline in [8,9,10]:
             data[n,a,s,fileline,i_sf] = float(dataFileStr[fileline])/1e6;
+          elif fileline == 15:
+            SumExitingIterationsLine = 4
+            data[n,a,s,fileline,i_sf] = float(dataFileStr[SumExitingIterationsLine])/nRobots[n];
           else:
             data[n,a,s,fileline,i_sf] = int(dataFileStr[fileline]);
       for fileline in range(datalines):
@@ -127,15 +130,19 @@ def mainLoop(fileline):
       "Minimum distance (m)",                                    # 11
       "Maximum velocity (m/s)",                                  # 12
       "Throughput (1/s)",                                        # 13
-      "Last robot's time for leaving\n the experiment area (s)"  # 14
+      "Last robot's time for leaving\n the experiment area (s)", # 14
+      "Sum of the iter. for exiting by number of robots",        # 15
     ]
     plt.ylabel(list_line_ylabel[fileline])
-    # ~ plt.savefig("FigureRobots"+str(fileline)+suffix_file+".png",bbox_inches="tight",pad_inches=0.01);
+    plt.savefig("FigureRobots"+str(fileline)+suffix_file+".png",bbox_inches="tight",pad_inches=0.01);
     plt.savefig("FigureRobots"+str(fileline)+suffix_file+".pdf",bbox_inches="tight",pad_inches=0.01);
     plt.clf();
 
-mainLoop(9)
-mainLoop(13)
-mainLoop(10)
-mainLoop(14)
+mainLoop(15)
+mainLoop(6)
+mainLoop(4)
+# ~ mainLoop(9)
+# ~ mainLoop(13)
+# ~ mainLoop(10)
+# ~ mainLoop(14)
 

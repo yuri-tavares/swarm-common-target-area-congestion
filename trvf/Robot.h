@@ -211,6 +211,9 @@ class Robot
     //Maximum time in miliseconds to test
     static unsigned long long testTime;
     
+    // True if user wants to save the velocities and positions of the robots over the time in a log.
+    static bool savePosVel;
+    
     //The name of a robot, used in some functions of Player/Stage
     string m_name;
     

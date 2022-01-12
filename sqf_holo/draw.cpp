@@ -17,8 +17,6 @@ typedef struct _Ponto Ponto;
 class RectVisualizer: public Visualizer{
   double attribute;  //radius of the circular target region
 
-  //Draw two lines crossing the goal.
-  //The angle between these lines is ALFA (specified by file alfa.h)
   void drawIntersection(){
     glColor3f(0,0,0);
     double angle;

@@ -52,13 +52,13 @@ void ConnectionLocal::finish(int m_id, int numIterationsEnter, int numIterations
 }
 
 //informs the logger that the robot using this class end your task, refreshing statistics 
-void ConnectionLocal::finish(int m_id, int numIterationsEnter, int numIterationsExit, int stalls, Stg::usec_t sim_time, Stg::usec_t reaching_goal_time, double maxVel, double minDist){
-  FinalLog::refresh(numIterationsEnter, numIterationsExit, numMessages, stalls, sim_time, reaching_goal_time, maxVel, minDist);
+void ConnectionLocal::finish(int m_id, int numIterationsEnter, int numIterationsExit, int stalls, Stg::usec_t sim_time, Stg::usec_t reaching_goal_time, double maxVel, double minDist, Stg::usec_t leavingTime){
+  FinalLog::refresh(numIterationsEnter, numIterationsExit, numMessages, stalls, sim_time, reaching_goal_time, maxVel, minDist, leavingTime);
   FinalLog::finish();
 }
 
 //informs the logger that the robot using this class end your task, refreshing statistics 
-void ConnectionLocal::finish(int m_id, int numIterationsEnter, int numIterationsExit, int stalls, Stg::usec_t sim_time, Stg::usec_t reaching_goal_time, double maxVel, double minDist, double meanDist, double varDist, unsigned long ndist, double meanVel, double varVel, unsigned long nveloc){
-  FinalLog::refresh(numIterationsEnter, numIterationsExit, numMessages, stalls, sim_time, reaching_goal_time, maxVel, minDist, meanDist, varDist, ndist, meanVel, varVel, nveloc);
+void ConnectionLocal::finish(int m_id, int numIterationsEnter, int numIterationsExit, int stalls, Stg::usec_t sim_time, Stg::usec_t reaching_goal_time, double maxVel, double minDist, double meanDist, double varDist, unsigned long ndist, double meanVel, double varVel, unsigned long nveloc, Stg::usec_t leavingTime){
+  FinalLog::refresh(numIterationsEnter, numIterationsExit, numMessages, stalls, sim_time, reaching_goal_time, maxVel, minDist, meanDist, varDist, ndist, meanVel, varVel, nveloc, leavingTime);
   FinalLog::finishDistVeloc();
 }
