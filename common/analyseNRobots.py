@@ -78,8 +78,7 @@ for i_sf, suffix_file in enumerate(suffix_file_list):
           elif fileline in [8,9,10]:
             data[n,a,s,fileline,i_sf] = float(dataFileStr[fileline])/1e6;
           elif fileline == 15:
-            SumExitingIterationsLine = 4
-            data[n,a,s,fileline,i_sf] = float(dataFileStr[SumExitingIterationsLine])/nRobots[n];
+            data[n,a,s,fileline,i_sf] = float(dataFileStr[fileline])/nRobots[n];
           else:
             data[n,a,s,fileline,i_sf] = int(dataFileStr[fileline]);
       for fileline in range(datalines):
@@ -114,35 +113,35 @@ def mainLoop(fileline):
       plt.legend(loc=0);
     plt.xlabel("Number of robots");
     list_line_ylabel = [ 
-      #       Label                                            # index
-      #----------------------------------------------------------#------
-      "Total number of iterations",                              # 0
-      "Total iterations of the last robot",                      # 1
-      "Number of messages",                                      # 2
-      "Summation of the iter. for reaching",                     # 3
-      "Summation of the iter. for exiting",                      # 4
-      "Last robot's iterations for reaching",                    # 5
-      "Last robot's iterations for exiting",                     # 6
-      "Stalls",                                                  # 7
-      "First robot's time for reaching\n the target region (s)", # 8
-      "Last robot's time for reaching\n the target region (s)",  # 9
-      "Total time of the simulation (s)",                        # 10
-      "Minimum distance (m)",                                    # 11
-      "Maximum velocity (m/s)",                                  # 12
-      "Throughput (1/s)",                                        # 13
-      "Last robot's time for leaving\n the experiment area (s)", # 14
-      "Sum of the iter. for exiting by number of robots",        # 15
+      #       Label                                                     # index
+      #-----------------------------------------------------------------#------
+      "Total number of iterations",                                     # 0
+      "Total iterations of the last robot",                             # 1
+      "Number of messages",                                             # 2
+      "Summation of the iter. for reaching",                            # 3
+      "Summation of the iter. for exiting",                             # 4
+      "Last robot's iterations for reaching",                           # 5
+      "Last robot's iterations for exiting",                            # 6
+      "Stalls",                                                         # 7
+      "First robot's time for reaching\n the target region (s)",        # 8
+      "Last robot's time for reaching\n the target region (s)",         # 9
+      "Total time of the simulation (s)",                               # 10
+      "Minimum distance (m)",                                           # 11
+      "Maximum velocity (m/s)",                                         # 12
+      "Throughput (1/s)",                                               # 13
+      "Last robot's time for leaving\nthe experiment area (s)",         # 14
+      "Sum of the iter. for leaving\ndivided by the number of robots",  # 15
     ]
     plt.ylabel(list_line_ylabel[fileline])
     plt.savefig("FigureRobots"+str(fileline)+suffix_file+".png",bbox_inches="tight",pad_inches=0.01);
     plt.savefig("FigureRobots"+str(fileline)+suffix_file+".pdf",bbox_inches="tight",pad_inches=0.01);
     plt.clf();
 
-mainLoop(15)
-mainLoop(6)
-mainLoop(4)
+# ~ mainLoop(15)
+# ~ mainLoop(6)
+# ~ mainLoop(4)
 # ~ mainLoop(9)
 # ~ mainLoop(13)
-# ~ mainLoop(10)
+mainLoop(10)
 # ~ mainLoop(14)
 
