@@ -15,24 +15,13 @@ def calcConfInt(mean,var,size):
   uppervalue = mean + t_variate * unbiased_sd/math.sqrt(size)
   return uppervalue
 
-def testTEqual(means1, variances1, n1, means2, variances2, n2):
-  '''
-    means1, means2: vector
-    variances1, variances2: vector
-    n1,n2: integer
-    return True if p-value >= 0.05, that is, means are equal.
-  '''
-  l1,l2 = len(means1),len(means2)
-  df = n1 + n2 - 2
-  ts = [(means1[i] - means2[i])/math.sqrt(variances1[i]/n1 + variances2[i]/n2) for i in range(min(l1,l2))]
-  ps = [(1-t.cdf(abs(ts[i]),df))*2 for i in range(min(l1,l2))]
-  return [(ps[i] >= 0.05, ps[i]) for i in range(min(l1,l2))]
-
-
 algorithmsLabels = ["PCC","EE","PCC-EE","TRVF","SQF"];
 suffix_file_list = ['nonholo','holo']
 nRobots = range(20,320,20);
-datalines = 13+3
+datalines = 20+2
+
+printValuesForTTest = False # Set true if one wishes to print values for t-test.
+SetForTTest = ["SQF","EE","TRVF"] # Set of algorithms to print if the variable above is true.
 
 algorithmsDict = {}
 algorithmsSymbolDict = {}
@@ -64,84 +53,95 @@ for i_sf, suffix_file in enumerate(suffix_file_list):
       for s in range(nSamples[a]):
         dataFile = open(algorithm+"/"+prefixNum[a]+str(nRobots[n])+"/log_"+str(s));
         dataFileStr = dataFile.readlines();
-        for fileline in range(datalines):
-          if fileline == 13:
+        for option in range(datalines):
+          if option == 20:
             FirstRobotReachingTimeLine = 8 
             LastRobotReachingTimeLine = 9
-            data[n,a,s,fileline,i_sf] = (nRobots[n]-1)/((float(dataFileStr[LastRobotReachingTimeLine]) - float(dataFileStr[FirstRobotReachingTimeLine]))/1e6);
-          elif fileline == 14:
+            data[n,a,s,option,i_sf] = (nRobots[n]-1)/((float(dataFileStr[LastRobotReachingTimeLine]) - float(dataFileStr[FirstRobotReachingTimeLine]))/1e6);
+          elif option == 21:
             SimulationTimeLine = 10 
             LastRobotReachingTimeLine = 9
-            data[n,a,s,fileline,i_sf] = (float(dataFileStr[SimulationTimeLine]) - float(dataFileStr[LastRobotReachingTimeLine]))/1e6;
-          elif fileline in [11,12]:
-            data[n,a,s,fileline,i_sf] = float(dataFileStr[fileline]);
-          elif fileline in [8,9,10]:
-            data[n,a,s,fileline,i_sf] = float(dataFileStr[fileline])/1e6;
-          elif fileline == 15:
-            data[n,a,s,fileline,i_sf] = float(dataFileStr[fileline])/nRobots[n];
+            data[n,a,s,option,i_sf] = (float(dataFileStr[SimulationTimeLine]) - float(dataFileStr[LastRobotReachingTimeLine]))/1e6;
+          elif option == 19:
+            if algorithmsLabels[a] in ['SQF','TRVF']:
+              SumLeavingTimeLine = 19
+            else:
+              SumLeavingTimeLine = 13
+            data[n,a,s,option,i_sf] = (float(dataFileStr[SumLeavingTimeLine])/1e6)/nRobots[n];
+          elif option in [11,12] or (algorithmsLabels[a] in ['SQF','TRVF'] and option in [13,14,16,17]):
+            data[n,a,s,option,i_sf] = float(dataFileStr[option]);
+          elif option in [8,9,10]:
+            data[n,a,s,option,i_sf] = float(dataFileStr[option])/1e6;
+          elif option < len(dataFileStr):
+            data[n,a,s,option,i_sf] = int(dataFileStr[option]);
           else:
-            data[n,a,s,fileline,i_sf] = int(dataFileStr[fileline]);
-      for fileline in range(datalines):
-        dataMean[n,a,fileline,i_sf] = np.mean(data[n,a,:nSamples[a],fileline,i_sf]);
-        dataVari[n,a,fileline,i_sf] = np.var(data[n,a,:nSamples[a],fileline,i_sf]);
-        if all(data[n,a,0,fileline,i_sf] == rest for rest in data[n,a,:,fileline,i_sf]):
-          dataUpCi[n,a,fileline,i_sf] = dataMean[n,a,fileline,i_sf]
+            continue;
+      for option in range(datalines):
+        dataMean[n,a,option,i_sf] = np.mean(data[n,a,:nSamples[a],option,i_sf]);
+        dataVari[n,a,option,i_sf] = np.var(data[n,a,:nSamples[a],option,i_sf]);
+        if all(data[n,a,0,option,i_sf] == rest for rest in data[n,a,:,option,i_sf]):
+          dataUpCi[n,a,option,i_sf] = dataMean[n,a,option,i_sf]
         else:
-          dataUpCi[n,a,fileline,i_sf] = calcConfInt(dataMean[n,a,fileline,i_sf],dataVari[n,a,fileline,i_sf],nSamples[a]);
+          dataUpCi[n,a,option,i_sf] = calcConfInt(dataMean[n,a,option,i_sf],dataVari[n,a,option,i_sf],nSamples[a]);
 
+list_line_ylabel = [ 
+#       Label                                                       # index
+#-------------------------------------------------------------------#------
+"Total number of iterations",                                       # 0
+"Sum of the max. iterations",                                       # 1
+"Number of messages",                                               # 2
+"Summation of the iter. for reaching",                              # 3
+"Summation of the iter. for exiting",                               # 4
+"Last robot's iterations that\nreached the target",                 # 5
+"Last robot's iterations that\nleft the target",                    # 6
+"Stalls",                                                           # 7
+"First robot's time for reaching\n the target region (s)",          # 8
+"Last robot's reaching time (s)",                                   # 9
+"Total time of the simulation (s)",                                 # 10
+"Minimum distance (m)",                                             # 11
+"Maximum velocity (m/s)",                                           # 12
+"Mean distance (m)",                                                # 13
+"St. dev. of distance (m)",                                         # 14
+"Num. of measured distances",                                       # 15
+"Mean velocity (m/s)",                                              # 16
+"St. dev. of velocity (m/s)",                                       # 17
+"Num. of measured velocities",                                      # 18
+"Average leaving time (s)",                                         # 19
+"Throughput (1/s)",                                                 # 20
+"Last robot's time for leaving\nthe experiment area (s)"            # 21
+]
 
 plt.rcParams.update({'font.size': 15})
 
-def mainLoop(fileline):
+def mainLoop(option):
+  if printValuesForTTest:
+    print('==== '+list_line_ylabel[option]+' ====')
   for  i_sf, suffix_file in enumerate(suffix_file_list):
     algorithms = algorithmsDict[suffix_file] 
     algorithmsSymbol = algorithmsSymbolDict[suffix_file] 
     prefixNum = prefixNumDict[suffix_file] 
     for a in range(len(algorithmsLabels)):
-      plt.errorbar(nRobots,dataMean[:,a,fileline,i_sf], yerr=[m - n for m,n in zip(dataUpCi[:,a,fileline,i_sf],dataMean[:,a,fileline,i_sf])], label=algorithmsLabels[a],marker=algorithmsSymbol[a],capsize=5,linestyle='solid' if algorithmsLabels[a] != 'TRVF' else 'dashed');
-      if algorithmsLabels[a] in  ["SQF","EE","TRVF"]:
+      plt.errorbar(nRobots,dataMean[:,a,option,i_sf], yerr=[m - n for m,n in zip(dataUpCi[:,a,option,i_sf],dataMean[:,a,option,i_sf])], label=algorithmsLabels[a],marker=algorithmsSymbol[a],capsize=5,linestyle='solid' if algorithmsLabels[a] != 'TRVF' else 'dashed');
+      if printValuesForTTest and algorithmsLabels[a] in SetForTTest:
         print('#',end='')
         print(algorithmsLabels[a],suffix_file,sep='-------')
         print('means'+algorithmsLabels[a]+' = ',end='')
-        print(*dataMean[:,a,fileline,i_sf], sep=', ')
+        print(*dataMean[:,a,option,i_sf], sep=', ')
         print('vari'+algorithmsLabels[a]+' = ',end='')
-        print(*dataVari[:,a,fileline,i_sf], sep=', ')
-
-    if suffix_file == "nonholo" and fileline == 13:
-      plt.legend(loc="lower center");
-    else:
-      plt.legend(loc=0);
+        print(*dataVari[:,a,option,i_sf], sep=', ')
+    plt.legend(loc=0);
     plt.xlabel("Number of robots");
-    list_line_ylabel = [ 
-      #       Label                                                     # index
-      #-----------------------------------------------------------------#------
-      "Total number of iterations",                                     # 0
-      "Total iterations of the last robot",                             # 1
-      "Number of messages",                                             # 2
-      "Summation of the iter. for reaching",                            # 3
-      "Summation of the iter. for exiting",                             # 4
-      "Last robot's iterations for reaching",                           # 5
-      "Last robot's iterations for exiting",                            # 6
-      "Stalls",                                                         # 7
-      "First robot's time for reaching\n the target region (s)",        # 8
-      "Last robot's time for reaching\n the target region (s)",         # 9
-      "Total time of the simulation (s)",                               # 10
-      "Minimum distance (m)",                                           # 11
-      "Maximum velocity (m/s)",                                         # 12
-      "Throughput (1/s)",                                               # 13
-      "Last robot's time for leaving\nthe experiment area (s)",         # 14
-      "Sum of the iter. for leaving\ndivided by the number of robots",  # 15
-    ]
-    plt.ylabel(list_line_ylabel[fileline])
-    plt.savefig("FigureRobots"+str(fileline)+suffix_file+".png",bbox_inches="tight",pad_inches=0.01);
-    plt.savefig("FigureRobots"+str(fileline)+suffix_file+".pdf",bbox_inches="tight",pad_inches=0.01);
+    plt.ylabel(list_line_ylabel[option])
+    plt.savefig("FigureRobots"+str(option)+suffix_file+".png",bbox_inches="tight",pad_inches=0.01);
+    plt.savefig("FigureRobots"+str(option)+suffix_file+".pdf",bbox_inches="tight",pad_inches=0.01);
     plt.clf();
 
-# ~ mainLoop(15)
-# ~ mainLoop(6)
-# ~ mainLoop(4)
+
+# ~ mainLoop(21)
+mainLoop(20)
+# ~ mainLoop(19)
+# ~ mainLoop(10)
 # ~ mainLoop(9)
-# ~ mainLoop(13)
-mainLoop(10)
-# ~ mainLoop(14)
+
+
 

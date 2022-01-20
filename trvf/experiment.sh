@@ -146,7 +146,7 @@ doExperiments(){
           while [ $try -lt $RETRYTIMES ] &&  [ ! -s $logsFolder/log\_$i2  ]  ; do
             echo "*** Running again. Log file named "$logsFolder/$logsName" was empty. ***" &>> $experimentsLog
             bash test.sh $folderConf/$configFile &>> $experimentsLog
-            mv $logsFolder/$logsName $logsFolder/log\_$i2 
+            mv $logsFolder/$logsName $logsFolder/log\_$i2
             if [ -f $logsFolder/$logsName\_robot0_v ]; then
               pushd $logsFolder
               rename 's/'`basename $logsName`'_robot/log_'$i2'_robot/' $logsName\_robot*\_{d,v};
@@ -162,7 +162,7 @@ doExperiments(){
 }
 
 mkdir -p $folderConf
-# initalise log for this script
+# initialise log for this script
 cat /dev/null > $experimentsLog
 sizeVars=${#varsExp[@]}
 for (( j=0; j<$sizeVars; j++ )); do

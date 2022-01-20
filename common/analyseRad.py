@@ -160,22 +160,22 @@ def main(fileline):
       plt.legend(loc=0);
     plt.xlabel("Radius of target area (m)");
     list_line_ylabel = [ 
-      #       Label                                            # index
-      #--------------------------------------------------------#------
-      "Total number of iterations",                            # 0
-      "Total iterations of the last robot",                    # 1
-      "Number of messages",                                    # 2
-      "Summation of the iter. for reaching",                   # 3
-      "Summation of the iter. for exiting",                    # 4
-      "Last robot's iterations for reaching",                  # 5
-      "Last robot's iterations for exiting",                   # 6
-      "Stalls",                                                # 7
-      "First robot's time for reaching\n the target region (s)", # 8
-      "Last robot's time for reaching\n the target region (s)",  # 9
-      "Total time of the simulation (s)",                      # 10
-      "Minimum distance (m)",                                  # 11
-      "Maximum velocity (m/s)",                                # 12
-      "Throughput (1/s)"                                       # 13
+      #       Label                                              # index
+      #----------------------------------------------------------#------
+      "Total number of iterations",                              # 0
+      "Total iterations of the last robot",                      # 1
+      "Number of messages",                                      # 2
+      "Summation of the iter. for reaching",                     # 3
+      "Summation of the iter. for exiting",                      # 4
+      "Last robot's iterations for reaching",                    # 5
+      "Last robot's iterations for exiting",                     # 6
+      "Stalls",                                                  # 7
+      "First robot's reaching time (s)",                         # 8
+      "Last robot's reaching time (s)",                          # 9
+      "Total time of the simulation (s)",                        # 10
+      "Minimum distance (m)",                                    # 11
+      "Maximum velocity (m/s)",                                  # 12
+      "Throughput (1/s)"                                         # 13
     ]
     plt.ylabel(list_line_ylabel[fileline])
     plt.savefig("FigureRad"+str(fileline)+suffix_file+".png",bbox_inches="tight");
@@ -186,4 +186,4 @@ def main(fileline):
 
 imgAllowed()
 main(9)
-main(13)
+# ~ main(13)
