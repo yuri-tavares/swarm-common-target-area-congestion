@@ -270,9 +270,6 @@ class Robot
     //Number of times that robot became stalled
     int stalls;
     
-    //Final angle for correcting the trajectory when in the other lane.
-    double finalTh;
-    
     // Used for control holonomic or non-holonomic robots.
     static bool isHolonomic;
     

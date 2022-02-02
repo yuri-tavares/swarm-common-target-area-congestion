@@ -120,7 +120,6 @@ void Robot::init(int id)
   pos->SetColor(GOING_COLOR);
   fx = fy = 0;
   currentWaypoint = 0;
-  finalTh = m_th + PI - 2*PI/K_path;
   line1parametersWasNotCalculated          =
   line2parametersWasNotCalculated          =
   toTargetRegionParametersWasNotCalculated =
