@@ -113,8 +113,8 @@ void WiseRobot::obstaclesRepulsionForces(double &fx, double &fy)
          if (dy > -limit && dy < 0)
             dy = -limit; 
 
-         double _fx = -Kobs*(1.0/distance - 1.0/(influence*2))*(1.0/pow((double)distance,2))*(dx/distance);
-         double _fy = -Kobs*(1.0/distance - 1.0/(influence*2))*(1.0/pow((double)distance,2))*(dy/distance);
+         double _fx = -Kobs*(1.0/distance - 1.0/influence)*(1.0/pow((double)distance,2))*(dx/distance);
+         double _fy = -Kobs*(1.0/distance - 1.0/influence)*(1.0/pow((double)distance,2))*(dy/distance);
 
          fx += _fx;
          fy += _fy;

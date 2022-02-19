@@ -193,8 +193,8 @@ void Robot::targetRegionRepulsionForce()
   double distance = hypot(tzx,tzy) - D;
   if (distance <= influence)
   {
-     fx_ = -Kobs*(1.0/distance - 1.0/(influence*2))*(1.0/pow(distance,2))*(tzx/(distance+D));
-     fy_ = -Kobs*(1.0/distance - 1.0/(influence*2))*(1.0/pow(distance,2))*(tzy/(distance+D));
+     fx_ = -Kobs*(1.0/distance - 1.0/influence)*(1.0/pow(distance,2))*(tzx/(distance+D));
+     fy_ = -Kobs*(1.0/distance - 1.0/influence)*(1.0/pow(distance,2))*(tzy/(distance+D));
   }
   fx += fx_;
   fy += fy_;
@@ -228,8 +228,8 @@ void Robot::obstaclesRepulsionForces()
          dx = distance*cos(m_th + getBearing(i));
          dy = distance*sin(m_th + getBearing(i));
 
-         double _fx = -Kobs*(1.0/distance - 1.0/(influence*2))*(1.0/pow((double)distance,2))*(dx/distance);
-         double _fy = -Kobs*(1.0/distance - 1.0/(influence*2))*(1.0/pow((double)distance,2))*(dy/distance);
+         double _fx = -Kobs*(1.0/distance - 1.0/influence)*(1.0/pow((double)distance,2))*(dx/distance);
+         double _fy = -Kobs*(1.0/distance - 1.0/influence)*(1.0/pow((double)distance,2))*(dy/distance);
 
          fx += _fx;
          fy += _fy;
