@@ -4,7 +4,7 @@
 MAXTRIES=1;
 NUMTESTS=40;
 nRobotsStart=20;
-nRobotsEnd=140;
+nRobotsEnd=300;
 radius=3
 
 # The configuration file passed in first argument overrides the above values
@@ -45,12 +45,13 @@ do
   for j in `seq 0 $((NUMTESTS-1))`; 
   do
     if [ ! -e nRobos$nRobos/log\_$j ]; then
-      logfile=$(generateRandomFile . log)
+      logfile=$(generateRandomFile nRobos$nRobos log)
       echo "******* test.sh $auto $nRobos $logfile $radius ********" &>> $analysisLogFile
-      ./test.sh $auto $nRobos $logfile $radius &>> $analysisLogFile
       if [ ! -d nRobos$nRobos ]; then
         mkdir nRobos$nRobos;
       fi
+      ./test.sh $auto $nRobos "$logfile" $radius &>> $analysisLogFile
+
       # check if another script saved on this current log file number while this experiment was running
       i=$j
       while [ -f nRobos$nRobos/log\_$i ]; do 
@@ -59,7 +60,7 @@ do
       
       # it only saves the log if it is still needed
       if [ $i -le $((NUMTESTS-1)) ]; then
-        mv $logfile nRobos$nRobos/log\_$i;
+        mv "$logfile" nRobos$nRobos/log\_$i;
         if [ -f robot0_v ]; then
           rename 's/^/log_'$i'_/' robot*\_{d,v};
           mv log\_$i\_robot*\_{d,v} nRobos$nRobos/;
@@ -69,7 +70,7 @@ do
         try=0;
         while [ $try -lt $MAXTRIES ] && ( [ ! -s nRobos$nRobos/log\_$i  ] ) ; do
           echo "*** Running again. Log file was empty. ***" &>> $analysisLogFile
-          ./test.sh $auto $nRobos $logfile $radius &>> $analysisLogFile
+          ./test.sh $auto $nRobos "$logfile" $radius &>> $analysisLogFile
           mv log nRobos$nRobos/log\_$i;
           if [ -f robot0_v ]; then
             rename 's/^/log_'$i'_/' robot*\_{d,v};
