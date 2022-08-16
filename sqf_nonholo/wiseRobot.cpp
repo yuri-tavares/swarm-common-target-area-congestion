@@ -249,7 +249,7 @@ void WiseRobot::walk(){
     if (distance(m_x, m_y, waypoints[0][0], waypoints[0][1]) < DISTANT_RADIUS)
     {
       // enter in rotation !
-      if (destineX > 0)
+      if (destineX > waypoints[0][0])
       {
         fx = - (m_y - waypoints[0][1]);
         fy =   (m_x - (waypoints[0][0] + DISTANT_RADIUS));

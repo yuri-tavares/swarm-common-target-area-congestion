@@ -6,3 +6,18 @@ Each directory is associated with an algorithm or experiment, containing the Sta
 common: directory containg some common functions, headers and definitions.
 
 Directories contain as prefix the algorithm name and suffix _holo for holonomic robots and _nonholo for non-holonomic ones. No suffix means that you can choose the robot by a configuration file.
+
+## Dependency
+Stage 
+https://github.com/rtv/Stage
+
+## Compiling
+```sh
+make
+```
+
+## Running an example
+See test.sh.
+
+## Running an example of experiments in batch
+See experiment.sh or experimentRadius.sh.

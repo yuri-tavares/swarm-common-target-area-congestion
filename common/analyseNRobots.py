@@ -138,9 +138,9 @@ def mainLoop(option):
 
 
 # ~ mainLoop(21)
-mainLoop(20)
+# ~ mainLoop(20)
 # ~ mainLoop(19)
-# ~ mainLoop(10)
+mainLoop(10)
 # ~ mainLoop(9)
 
 
