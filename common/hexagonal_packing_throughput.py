@@ -144,7 +144,7 @@ def rangePointsInRectangle(P, d, th, x0, y0, Y1, Y2, lastX, lastY, v, T):
 
 def findLastRobot(th, Y1, Y2, d, x0, y0, v, T):
   '''
-  Returns a list of robots' position and orientation inside a corridor using hexagonal tiling. The corridor measures X x (Y1 + Y2) units of area. Also, it returns the pair (lastX,lastY) inside the rectangular corridor.
+  Computes a list of robots' position and orientation inside a corridor using hexagonal tiling. The corridor measures X x (Y1 + Y2) units of area. Also, it returns the pair (lastX,lastY) inside the rectangular corridor.
     
     |------- X ------|
     |- X - s --|- s -|
