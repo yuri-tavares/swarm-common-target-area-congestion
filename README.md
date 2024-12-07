@@ -7,6 +7,10 @@ common: directory containg some common functions, headers and definitions.
 
 Directories contain as prefix the algorithm name and suffix _holo for holonomic robots and _nonholo for non-holonomic ones. No suffix means that you can choose the robot by a configuration file.
 
+More details about PCC, EE and PCC-EE are in this [paper](https://link.springer.com/article/10.1007/s10514-016-9577-x).
+
+More details aout SQF and TRVF are in this [thesis](https://www.research.lancs.ac.uk/portal/services/downloadRegister/401931354/2023passosphd.pdf).
+
 ## Dependency
 Stage 
 https://github.com/rtv/Stage
